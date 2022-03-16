@@ -2,7 +2,7 @@
   <form>
     <p class="clasificacion">
       <template v-for="index in length" :key="index">
-        <input 
+        <input
           :id="'radio'+index"
           type="radio"
           name="starts"
@@ -21,43 +21,43 @@ export default {
   props: {
     length: {
       type: Number,
-      default: 5
+      default: 5,
     },
     id: {
       type: Number,
-      default: 0
+      default: 0,
     },
     value: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   methods: {
     selectedValue(value) {
       let item;
       const list = localStorage.getItem('comic');
-      if(list && this.id) {
+      if (list && this.id) {
         const temporyArray = JSON.parse(list);
         item = temporyArray.some((itemList) => itemList.id === this.id)
           ? temporyArray.map((itemList) => {
-              if (itemList.id === this.id) {
-                itemList.value = value;
-              }
-              return itemList;
-            })
+            if (itemList.id === this.id) {
+              itemList.value = value;
+            }
+            return itemList;
+          })
           : [...temporyArray, {
             id: this.id,
-            value
+            value,
           }];
       } else {
         item = [{
           id: this.id,
-          value
+          value,
         }];
       }
       localStorage.setItem('comic', JSON.stringify(item));
-    }
+    },
   },
-}
+};
 </script>
 <style scoped>
 #form {

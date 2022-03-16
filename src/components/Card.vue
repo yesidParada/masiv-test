@@ -7,48 +7,49 @@
   </div>
 </template>
 <script>
-import Rating from "./Rating.vue";
+import Rating from './Rating.vue';
+
 export default {
-  name: "Card",
+  name: 'Card',
   props: {
     title: {
       type: String,
-      default: 'title Example'
+      default: 'title Example',
     },
     img: {
       type: String,
-      default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'
+      default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png',
     },
     subtitle: {
       type: String,
-      default: 'Subtitle'
+      default: 'Subtitle',
     },
     idCard: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   components: {
     Rating,
   },
   data() {
     return {
-      value: 0
-    }
+      value: 0,
+    };
   },
-  beforeUpdate(){
+  beforeUpdate() {
     this.getValue();
   },
   methods: {
     getValue() {
       const list = localStorage.getItem('comic');
-      if(list && this.idCard) {
+      if (list && this.idCard) {
         const item = JSON.parse(list).filter((itemList) => itemList.id === this.idCard);
         this.value = item.length > 0 ? item[0].value : 0;
       }
-    }
+    },
   },
-}
+};
 </script>
 <style scoped>
 .card {
