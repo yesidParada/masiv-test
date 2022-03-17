@@ -1,55 +1,45 @@
 <template>
   <div class="card">
-    <h1>{{ title }}</h1>
-    <span>{{ subtitle }}</span>
-    <img :alt="title" :src="img" />
-    <Rating :id="idCard" :value="value" :length="5"/>
+    <h1>{{ data.title }}</h1>
+    <span>{{ data.year }}</span>
+    <img :alt="data.alt" :src="data.img" />
+    <Rating :id="data.num" :value="value" @saveValue="saveValue" :length="5"/>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import { LocalStorageItem } from '@/model/local-storage.model';
+import { mapState } from 'vuex';
 import Rating from './Rating.vue';
 
-export default {
-  name: 'Card',
-  props: {
-    title: {
-      type: String,
-      default: 'title Example',
-    },
-    img: {
-      type: String,
-      default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png',
-    },
-    subtitle: {
-      type: String,
-      default: 'Subtitle',
-    },
-    idCard: {
-      type: Number,
-      default: 0,
-    },
-  },
+@Options({
   components: {
     Rating,
   },
-  data() {
-    return {
-      value: 0,
-    };
+  computed: {
+    ...mapState(['data']),
   },
-  beforeUpdate() {
+  updated() {
     this.getValue();
   },
   methods: {
-    getValue() {
+    getValue(): void {
       const list = localStorage.getItem('comic');
-      if (list && this.idCard) {
-        const item = JSON.parse(list).filter((itemList) => itemList.id === this.idCard);
+      if (list && this.data.num) {
+        const item = JSON.parse(list).filter(
+          (itemList: LocalStorageItem) => itemList.id === this.data.num,
+        );
         this.value = item.length > 0 ? item[0].value : 0;
       }
     },
+    saveValue(value: number): void {
+      this.value = value;
+    },
   },
-};
+})
+export default class Card extends Vue {
+  value = 0;
+}
 </script>
 <style scoped>
 .card {

@@ -15,9 +15,11 @@
     </p>
   </form>
 </template>
-<script>
-export default {
-  name: 'Rating',
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import { LocalStorageItem } from '@/model/local-storage.model';
+
+@Options({
   props: {
     length: {
       type: Number,
@@ -31,18 +33,21 @@ export default {
       type: Number,
     },
   },
+  emits: ['saveValue'],
   methods: {
-    selectedValue(value) {
+    selectedValue(value: number): void {
+      this.$emit('saveValue', value);
       let item;
       const list = localStorage.getItem('comic');
       if (list && this.id) {
         const temporyArray = JSON.parse(list);
-        item = temporyArray.some((itemList) => itemList.id === this.id)
-          ? temporyArray.map((itemList) => {
-            if (itemList.id === this.id) {
-              itemList.value = value;
+        item = temporyArray.some((itemList: LocalStorageItem) => itemList.id === this.id)
+          ? temporyArray.map((itemListOn: LocalStorageItem) => {
+            if (itemListOn.id === this.id) {
+              // eslint-disable-next-line no-param-reassign
+              itemListOn.value = value;
             }
-            return itemList;
+            return itemListOn;
           })
           : [...temporyArray, {
             id: this.id,
@@ -57,7 +62,10 @@ export default {
       localStorage.setItem('comic', JSON.stringify(item));
     },
   },
-};
+})
+
+export default class Rating extends Vue {
+}
 </script>
 <style scoped>
 #form {
