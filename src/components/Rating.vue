@@ -67,38 +67,27 @@ import { LocalStorageItem } from '@/model/local-storage.model';
 export default class Rating extends Vue {
 }
 </script>
-<style scoped>
-#form {
-  width: 250px;
-  margin: 0 auto;
-  height: 50px;
-}
-
-#form p {
-  text-align: center;
-}
-
-#form label {
-  font-size: 20px;
-}
-
+<style lang="scss">
+@import '../style';
 input[type="radio"] {
   display: none;
+
+  &:checked ~ label {
+    color: $orange-color;
+  }
 }
 label {
-  color: grey;
+  color: darken($gray-color, 25);
   cursor: pointer;
+
+  &:hover,
+  &:hover ~ label {
+    color: $orange-color;
+  }
 }
 .clasificacion {
   direction: rtl;
   unicode-bidi: bidi-override;
   font-size: 62px;
-}
-label:hover,
-label:hover ~ label {
-  color: orange;
-}
-input[type="radio"]:checked ~ label {
-  color: orange;
 }
 </style>

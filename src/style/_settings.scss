@@ -1,5 +1,11 @@
-$primary-color:#183C6B;
-$secundary-color: #7CADEE;
+@import url("https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap");
+
+$primary-color:#7c76d1;
 $white-color: #ffffff;
 $black-color: #000000; 
+$gray-color: #edebeb;
+$gray-dark-color: #c0c0c0;
+$orange-color: #ffa500;
 
+$font: "Coming Soon", cursive;
+$border: 1px solid $gray-dark-color;

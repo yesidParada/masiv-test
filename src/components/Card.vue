@@ -41,22 +41,23 @@ export default class Card extends Vue {
   value = 0;
 }
 </script>
-<style scoped>
+<style lang="scss">
+@import '../style';
+
 .card {
-  width: 70%;
-  text-align: center;
-  height: 80vh;
-  background: #969696;
-  padding: 10px;
   display: flex;
+  border: $border;
   flex-direction: column;
+  box-sizing: border-box;
+  padding: 18px;
+  width: fit-content;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
-  box-shadow: 8px 8px 11px 9px #000;
+  background: $gray-color;
+  border-radius: 4px;
 }
 .card img {
-  width: 70%;
+  max-width: 100%;
   height: 50vh;
   image-rendering: pixelated;
 }
